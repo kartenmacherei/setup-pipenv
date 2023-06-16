@@ -1,0 +1,30 @@
+name: Setup Pipenv virtual environment with dependencies
+description: Sets up python & pipenv, activates a virtual environment with all dependencies from Pipfile.lock
+inputs:
+  python-version:
+    description: The version of Python to use
+    required: true
+  additional-dependencies:
+    description: Extra dependencies that need to be installed but may or may not be in Pipfile.lock
+    required: false
+    default: ""
+runs:
+  using: "composite"
+  steps:
+    - name: Setup python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ inputs.python-version }}
+        cache: "pipenv"
+
+    - name: Install dependencies and activate virtual environment
+      shell: bash
+      run: |
+        pip install pipenv
+        pipenv sync --dev --python ${{ inputs.python-version }}
+        source `pipenv --venv`/bin/activate
+        if [[ $ADD ]] ; then pip install $ADD ; fi
+        echo "PATH=${PATH}" >> $GITHUB_ENV
+        echo "VIRTUAL_ENV=${VIRTUAL_ENV}" >> $GITHUB_ENV
+      env:
+        ADD: ${{ inputs.additional-dependencies }}
