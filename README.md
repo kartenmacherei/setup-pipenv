@@ -4,6 +4,14 @@ A GitHub action to install python and setup + activate a virtual environment wit
 Other than existing pipenv GitHub actions, the virtual environment is activated after it is set up.
 So the rest of the workflow doesn't need to know that pipenv was used in creating the environment.
 
+## Example Usage
+
+```
+- uses: kartenmacherei/setup-pipenv@0.0.1
+  with:
+    python-version: 3.9
+```
+
 ## Inputs
 
 - `python-version`: The Python version to use (e.g., `3.9`)
