@@ -8,6 +8,11 @@ inputs:
     description: Extra dependencies that need to be installed but may or may not be in Pipfile.lock
     required: false
     default: ""
+  working-directory:
+    required: false
+    default: "."
+    description: The working directory to run the action in. This is useful if you want to run the action in a subdirectory of your repository.
+
 runs:
   using: "composite"
   steps:
@@ -18,6 +23,7 @@ runs:
         cache: "pipenv"
 
     - name: Install dependencies and activate virtual environment
+      working-directory: ${{ inputs.working-directory }}
       shell: bash
       run: |
         pip install pipenv
