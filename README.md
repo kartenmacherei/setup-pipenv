@@ -19,3 +19,5 @@ So the rest of the workflow doesn't need to know that pipenv was used in creatin
 after setting up the virtual environment with the dependencies from `Pipfile.lock`.
 This might be useful if there are certain dependencies only for the workflow
 that are not needed for the rest of the project.
+- working-directory: (optional) The working directory to run the action in. This is useful if you want to
+  run the action in a subdirectory of your repository. The default is the root of the repository.
